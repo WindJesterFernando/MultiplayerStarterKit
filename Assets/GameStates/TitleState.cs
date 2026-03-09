@@ -2,22 +2,41 @@ using UnityEngine;
 
 public class TitleState : AbstractGameState
 {
-    GameObject button, button2, button3, button4;
+    GameObject button;
 
-    public TitleState(GameObject button, GameObject button2, GameObject button3, GameObject button4)
+    public TitleState(GameObject button)
     {
         this.button = button;
-        this.button2 = button2;
-        this.button3 = button3;
-        this.button4 = button4;
     }
 
     public override void LoadGameState()
     {
         Debug.Log("Title State Loaded");
         button.SetActive(true);
-        button2.SetActive(false);
-        button3.SetActive(false);
-        button4.SetActive(false);
     }
+
+    public override void UnloadGameState()
+    {
+        Debug.Log("Title State Unloaded");
+        button.SetActive(false);
+    }
+
+    public override void Pause()
+    {
+        Debug.Log("Title State Paused");
+        button.SetActive(false);
+    }
+
+    public override void Resume()
+    {
+        Debug.Log("Title State Resumed");
+        button.SetActive(true);
+    }
+
+    public override void Update()
+    {
+        Debug.Log("Title State Updating");
+    }
+
+
 }

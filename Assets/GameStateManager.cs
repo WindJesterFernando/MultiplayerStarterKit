@@ -27,25 +27,31 @@ public class GameStateManager : MonoBehaviour
         button3.GetComponent<Button>().onClick.AddListener(FunctionForOurButton3);
         button4.GetComponent<Button>().onClick.AddListener(FunctionForOurButton4);
 
+        titleState = new TitleState(button);
+        mainMenuState = new MainMenuState(button2);
+        gamePlayState = new GamePlayState(button3);
 
-        titleState = new TitleState(button, button2, button3, button4);
-        mainMenuState = new MainMenuState(button, button2, button3, button4);
-        gamePlayState = new GamePlayState(button, button2, button3, button4);
+        button.SetActive(false);
+        button2.SetActive(false);
+        button3.SetActive(false);
+        button4.SetActive(false);
 
         PushGameStateOnStack(titleState);
     }
 
     void Update()
     {
-        if (gameStateStack.Peek() == gamePlayState)
-        {
-            Debug.Log("we are updating in gameplay state");
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PopGameStateOffStack();
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PopGameStateUntilStateIs(titleState);
+        }
+
+        gameStateStack.Peek().Update();
     }
 
     public void FunctionForOurButton()
@@ -65,21 +71,30 @@ public class GameStateManager : MonoBehaviour
         //PushGameStateOnStack(GameState.OneState);
     }
 
-    public void PopGameStateOffStack()
-    {
-        if (gameStateStack.Peek() != titleState)
-        {
-            gameStateStack.Pop();
-            gameStateStack.Peek().LoadGameState();
-        }
-    }
-
     public void PushGameStateOnStack(AbstractGameState gameState)
     {
+        if (gameStateStack.Count > 0)
+            gameStateStack.Peek().Pause();
+
         gameStateStack.Push(gameState);
         gameState.LoadGameState();
     }
 
+    public void PopGameStateOffStack()
+    {
+        if (gameStateStack.Peek() != titleState)
+        {
+            gameStateStack.Peek().UnloadGameState();
+            gameStateStack.Pop();
+            gameStateStack.Peek().Resume();
+        }
+    }
+
+    public void PopGameStateUntilStateIs(AbstractGameState gameState)
+    {
+        while (gameStateStack.Peek() != gameState)
+            PopGameStateOffStack();
+    }
 
 }
 
@@ -90,11 +105,9 @@ public class GameStateManager : MonoBehaviour
 // A state that will hold things”
 // “We need a state manager”
 // “Stack: push & pop”
-
-
-// “What does a state have?”, “what is our definition of a state?”
 // How do we package states?
 //"Our states are NOT actually holding anything?", "turn states into classes"
+// “What does a state have?”, “what is our definition of a state?”
 
 
 
