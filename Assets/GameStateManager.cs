@@ -12,25 +12,34 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] GameObject button3;
     [SerializeField] GameObject button4;
 
-    Stack<GameState> gameStateStack;
+    Stack<AbstractGameState> gameStateStack;
+
+    TitleState titleState;
+    MainMenuState mainMenuState;
+    GamePlayState gamePlayState;
 
     void Start()
     {
-        gameStateStack = new Stack<GameState>();
+        gameStateStack = new Stack<AbstractGameState>();
 
         button.GetComponent<Button>().onClick.AddListener(FunctionForOurButton);
         button2.GetComponent<Button>().onClick.AddListener(FunctionForOurButton2);
         button3.GetComponent<Button>().onClick.AddListener(FunctionForOurButton3);
         button4.GetComponent<Button>().onClick.AddListener(FunctionForOurButton4);
 
-        PushGameStateOnStack(GameState.OneState);
+
+        titleState = new TitleState(button, button2, button3, button4);
+        mainMenuState = new MainMenuState(button, button2, button3, button4);
+        gamePlayState = new GamePlayState(button, button2, button3, button4);
+
+        PushGameStateOnStack(titleState);
     }
 
     void Update()
     {
-        if (gameStateStack.Peek() == GameState.ThreeState)
+        if (gameStateStack.Peek() == gamePlayState)
         {
-            Debug.Log("gwegewgerwgwer");
+            Debug.Log("we are updating in gameplay state");
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -41,15 +50,15 @@ public class GameStateManager : MonoBehaviour
 
     public void FunctionForOurButton()
     {
-        PushGameStateOnStack(GameState.TwoState);
+        PushGameStateOnStack(mainMenuState);
     }
     public void FunctionForOurButton2()
     {
-        PushGameStateOnStack(GameState.ThreeState);
+        PushGameStateOnStack(gamePlayState);
     }
     public void FunctionForOurButton3()
     {
-        PushGameStateOnStack(GameState.FourState);
+        //PushGameStateOnStack(GameState.FourState);
     }
     public void FunctionForOurButton4()
     {
@@ -58,66 +67,21 @@ public class GameStateManager : MonoBehaviour
 
     public void PopGameStateOffStack()
     {
-        if(gameStateStack.Peek() != GameState.OneState)
+        if (gameStateStack.Peek() != titleState)
+        {
             gameStateStack.Pop();
-            
-        LoadState();
+            gameStateStack.Peek().LoadGameState();
+        }
     }
 
-    public void PushGameStateOnStack(GameState gameState)
+    public void PushGameStateOnStack(AbstractGameState gameState)
     {
         gameStateStack.Push(gameState);
-        LoadState();
+        gameState.LoadGameState();
     }
 
-    public void LoadState()
-    {
-        GameState gameState = gameStateStack.Peek();
-
-        if (gameState == GameState.OneState)
-        {
-            Debug.Log("111111");
-            button.SetActive(true);
-            button2.SetActive(false);
-            button3.SetActive(false);
-            button4.SetActive(false);
-        }
-        else if (gameState == GameState.TwoState)
-        {
-            Debug.Log("22222");
-            button.SetActive(false);
-            button2.SetActive(true);
-            button3.SetActive(false);
-            button4.SetActive(false);
-        }
-        else if (gameState == GameState.ThreeState)
-        {
-            Debug.Log("33333");
-            button.SetActive(false);
-            button2.SetActive(false);
-            button3.SetActive(true);
-            button4.SetActive(false);
-        }
-        else if (gameState == GameState.FourState)
-        {
-            Debug.Log("44444");
-            button.SetActive(false);
-            button2.SetActive(false);
-            button3.SetActive(false);
-            button4.SetActive(true);
-        }
-    }
 
 }
-
-public enum GameState
-{
-    OneState,
-    TwoState,
-    ThreeState,
-    FourState,
-}
-
 
 
 //
@@ -125,19 +89,13 @@ public enum GameState
 //UI for multiple states
 // A state that will hold things”
 // “We need a state manager”
-
-
 // “Stack: push & pop”
 
 
-//we need to add a state to.......
-
-
 // “What does a state have?”, “what is our definition of a state?”
-
-
-
-
-
 // How do we package states?
 //"Our states are NOT actually holding anything?", "turn states into classes"
+
+
+
+//we need to add a state to.......
