@@ -13,6 +13,12 @@ static public class NetworkClientProcessing
         string[] csv = msg.Split(',');
         int signifier = int.Parse(csv[0]);
 
+        if (signifier == 0)
+        {
+            Debug.Log("HIT!!!");
+            gameLogic.SetLoginInfoText("Error! Account name already in use.");
+        }
+
         // if (signifier == ServerToClientSignifiers.asd)
         // {
 

@@ -72,4 +72,9 @@ public class AccountLoginUI : MonoBehaviour
 
         NetworkClientProcessing.SendMessageToServer(createAccountSerialization, TransportPipeline.ReliableAndInOrder);
     }
+
+    public void SetInfoText(string info)
+    {
+        infoText.GetComponent<TMP_Text>().text = info;
+    }
 }

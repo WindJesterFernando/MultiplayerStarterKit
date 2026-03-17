@@ -1802,6 +1802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fb456a3e3cf41ee9e81030442b44c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameLogic
+  accountLoginUI: {fileID: 2098901189}
 --- !u!1 &435821452
 GameObject:
   m_ObjectHideFlags: 0
