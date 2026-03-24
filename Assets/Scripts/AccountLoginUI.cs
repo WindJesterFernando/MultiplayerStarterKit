@@ -14,7 +14,6 @@ public class AccountLoginUI : MonoBehaviour
     [SerializeField]
     GameObject createNameInput, createPassInput, createPassVerificationInput, createAccountButton, createAccountBackButton;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         loginButton.GetComponent<Button>().onClick.AddListener(LoginButtonClick);
@@ -25,7 +24,6 @@ public class AccountLoginUI : MonoBehaviour
         createAccountBackButton.GetComponent<Button>().onClick.AddListener(CreateAccountBackButtonClick);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -36,11 +34,8 @@ public class AccountLoginUI : MonoBehaviour
         string name = nameInput.GetComponent<TMP_InputField>().text;
         string pass = passInput.GetComponent<TMP_InputField>().text;
 
-        string loginSerialization = (int)ClientToServerSignal.AccountLogin + Utilities.Delineator + name + Utilities.Delineator + pass;
-
-        Debug.Log(loginSerialization);
-
-        NetworkClientProcessing.SendMessageToServer(loginSerialization, TransportPipeline.ReliableAndInOrder);
+        string loginMsg = Utilities.Concatenate((int)ClientToServerSignal.AccountLogin, name, pass);
+        NetworkClientProcessing.SendMessageToServer(loginMsg, TransportPipeline.ReliableAndInOrder);
     }
 
     public void CreateButtonClick()
@@ -69,11 +64,8 @@ public class AccountLoginUI : MonoBehaviour
             return;
         }
 
-        string createAccountSerialization = (int)ClientToServerSignal.AccountCreate + Utilities.Delineator + name + Utilities.Delineator + pass;
-
-        Debug.Log(createAccountSerialization);
-
-        NetworkClientProcessing.SendMessageToServer(createAccountSerialization, TransportPipeline.ReliableAndInOrder);
+        string createAccountMsg = Utilities.Concatenate((int)ClientToServerSignal.AccountCreate, name, pass);
+        NetworkClientProcessing.SendMessageToServer(createAccountMsg, TransportPipeline.ReliableAndInOrder);
     }
 
     public void SetInfoText(string info)

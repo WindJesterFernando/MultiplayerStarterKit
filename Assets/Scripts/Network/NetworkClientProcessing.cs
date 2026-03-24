@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 static public class NetworkClientProcessing
@@ -12,7 +10,6 @@ static public class NetworkClientProcessing
 
         string[] csv = msg.Split(Utilities.Delineator);
         ServerToClientSignal signal = (ServerToClientSignal)int.Parse(csv[0]);
-
 
         if (signal == ServerToClientSignal.AccountLoginUserNameError)
         {
