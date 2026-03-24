@@ -36,7 +36,7 @@ public class AccountLoginUI : MonoBehaviour
         string name = nameInput.GetComponent<TMP_InputField>().text;
         string pass = passInput.GetComponent<TMP_InputField>().text;
 
-        string loginSerialization = 0 + "," + name + "," + pass;
+        string loginSerialization = (int)ClientToServerSignal.AccountLogin + Utilities.Delineator + name + Utilities.Delineator + pass;
 
         Debug.Log(loginSerialization);
 
@@ -69,7 +69,7 @@ public class AccountLoginUI : MonoBehaviour
             return;
         }
 
-        string createAccountSerialization = 1 + "," + name + "," + pass;
+        string createAccountSerialization = (int)ClientToServerSignal.AccountCreate + Utilities.Delineator + name + Utilities.Delineator + pass;
 
         Debug.Log(createAccountSerialization);
 

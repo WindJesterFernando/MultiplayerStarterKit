@@ -8,39 +8,33 @@ static public class NetworkClientProcessing
     #region Send and Receive Data Functions
     static public void ReceivedMessageFromServer(string msg, TransportPipeline pipeline)
     {
-        Debug.Log("Network msg received =  " + msg + ", from pipeline = " + pipeline);
+        Debug.Log("Network msg received =  " + msg + Utilities.Delineator + " from pipeline = " + pipeline);
 
-        string[] csv = msg.Split(',');
-        int signifier = int.Parse(csv[0]);
+        string[] csv = msg.Split(Utilities.Delineator);
+        ServerToClientSignal signal = (ServerToClientSignal)int.Parse(csv[0]);
 
-        if (signifier == 0)
+
+        if (signal == ServerToClientSignal.AccountLoginUserNameError)
         {
-            Debug.Log("HIT!!!");
+            gameLogic.SetLoginInfoText("Error! User name not found");
+        }
+        else if (signal == ServerToClientSignal.AccountLoginPasswordError)
+        {
+            gameLogic.SetLoginInfoText("Error! Password is incorrect");
+        }
+        else if (signal == ServerToClientSignal.AccountCreationUserNameError)
+        {
             gameLogic.SetLoginInfoText("Error! Account name already in use.");
         }
-        else if (signifier == 1)
+        else if (signal == ServerToClientSignal.AccountLoginSuccess)
         {
             gameLogic.SetLoginInfoText("Login Successful");
         }
-        else if (signifier == 2)
+        else if (signal == ServerToClientSignal.AccountCreationSuccess)
         {
             gameLogic.GoBackToLoginScreen();
             gameLogic.SetLoginInfoText("Account Successfully Created!");
         }
-
-        //
-
-        // if (signifier == ServerToClientSignifiers.asd)
-        // {
-
-        // }
-        // else if (signifier == ServerToClientSignifiers.asd)
-        // {
-
-        // }
-
-        //gameLogic.DoSomething();
-
     }
 
     static public void SendMessageToServer(string msg, TransportPipeline pipeline)
@@ -95,16 +89,4 @@ static public class NetworkClientProcessing
 
 }
 
-#region Protocol Signifiers
-static public class ClientToServerSignifiers
-{
-    public const int asd = 1;
-}
-
-static public class ServerToClientSignifiers
-{
-    public const int asd = 1;
-}
-
-#endregion
 
