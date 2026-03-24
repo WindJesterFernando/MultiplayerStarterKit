@@ -12,7 +12,7 @@ public class AccountLoginUI : MonoBehaviour
 
 
     [SerializeField]
-    GameObject createNameInput, createPassInput, createPassVerificationInput, createAccountButton;
+    GameObject createNameInput, createPassInput, createPassVerificationInput, createAccountButton, createAccountBackButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,12 +21,14 @@ public class AccountLoginUI : MonoBehaviour
         createButton.GetComponent<Button>().onClick.AddListener(CreateButtonClick);
 
         createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
+
+        createAccountBackButton.GetComponent<Button>().onClick.AddListener(CreateAccountBackButtonClick);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void LoginButtonClick()
@@ -52,6 +54,7 @@ public class AccountLoginUI : MonoBehaviour
         createPassInput.SetActive(true);
         createPassVerificationInput.SetActive(true);
         createAccountButton.SetActive(true);
+        createAccountBackButton.SetActive(true);
     }
 
     public void CreateAccountButtonClick()
@@ -60,7 +63,7 @@ public class AccountLoginUI : MonoBehaviour
         string pass = createPassInput.GetComponent<TMP_InputField>().text;
         string passVerification = createPassVerificationInput.GetComponent<TMP_InputField>().text;
 
-        if(pass != passVerification)
+        if (pass != passVerification)
         {
             infoText.GetComponent<TMP_Text>().text = "passwords do not match";
             return;
@@ -76,5 +79,19 @@ public class AccountLoginUI : MonoBehaviour
     public void SetInfoText(string info)
     {
         infoText.GetComponent<TMP_Text>().text = info;
+    }
+
+    public void CreateAccountBackButtonClick()
+    {
+        nameInput.SetActive(true);
+        passInput.SetActive(true);
+        loginButton.SetActive(true);
+        createButton.SetActive(true);
+
+        createNameInput.SetActive(false);
+        createPassInput.SetActive(false);
+        createPassVerificationInput.SetActive(false);
+        createAccountButton.SetActive(false);
+        createAccountBackButton.SetActive(false);
     }
 }

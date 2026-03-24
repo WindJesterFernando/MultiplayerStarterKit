@@ -18,6 +18,17 @@ static public class NetworkClientProcessing
             Debug.Log("HIT!!!");
             gameLogic.SetLoginInfoText("Error! Account name already in use.");
         }
+        else if (signifier == 1)
+        {
+            gameLogic.SetLoginInfoText("Login Successful");
+        }
+        else if (signifier == 2)
+        {
+            gameLogic.GoBackToLoginScreen();
+            gameLogic.SetLoginInfoText("Account Successfully Created!");
+        }
+
+        //
 
         // if (signifier == ServerToClientSignifiers.asd)
         // {

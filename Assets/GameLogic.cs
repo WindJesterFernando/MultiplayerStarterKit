@@ -25,4 +25,9 @@ public class GameLogic : MonoBehaviour
         accountLoginUI.GetComponent<AccountLoginUI>().SetInfoText(info);
     }
 
+    public void GoBackToLoginScreen()
+    {
+        accountLoginUI.GetComponent<AccountLoginUI>().CreateAccountBackButtonClick();
+    }
+
 }
