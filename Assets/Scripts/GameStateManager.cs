@@ -7,34 +7,25 @@ using System.Collections.Generic;
 public class GameStateManager : MonoBehaviour
 {
 
-    [SerializeField] GameObject button;
-    [SerializeField] GameObject button2;
-    [SerializeField] GameObject button3;
-    [SerializeField] GameObject button4;
+    [SerializeField] GameObject titleScreenStartButton;
+    [SerializeField] GameObject titleScreen;
+    [SerializeField] GameObject loginScreen;
 
     Stack<AbstractGameState> gameStateStack;
 
     TitleState titleState;
-    MainMenuState mainMenuState;
+    LoginState loginState;
     GamePlayState gamePlayState;
 
     void Start()
     {
         gameStateStack = new Stack<AbstractGameState>();
 
-        button.GetComponent<Button>().onClick.AddListener(FunctionForOurButton);
-        button2.GetComponent<Button>().onClick.AddListener(FunctionForOurButton2);
-        button3.GetComponent<Button>().onClick.AddListener(FunctionForOurButton3);
-        button4.GetComponent<Button>().onClick.AddListener(FunctionForOurButton4);
+        titleScreenStartButton.GetComponent<Button>().onClick.AddListener(FunctionForOurButton);
 
-        titleState = new TitleState(button);
-        mainMenuState = new MainMenuState(button2);
-        gamePlayState = new GamePlayState(button3);
+        titleState = new TitleState(titleScreen);
+        loginState = new LoginState(loginScreen);
 
-        button.SetActive(false);
-        button2.SetActive(false);
-        button3.SetActive(false);
-        button4.SetActive(false);
 
         PushGameStateOnStack(titleState);
     }
@@ -56,11 +47,11 @@ public class GameStateManager : MonoBehaviour
 
     public void FunctionForOurButton()
     {
-        PushGameStateOnStack(mainMenuState);
+        PushGameStateOnStack(loginState);
     }
     public void FunctionForOurButton2()
     {
-        PushGameStateOnStack(gamePlayState);
+        //PushGameStateOnStack(gamePlayState);
     }
     public void FunctionForOurButton3()
     {
@@ -97,18 +88,3 @@ public class GameStateManager : MonoBehaviour
     }
 
 }
-
-
-//
-
-//UI for multiple states
-// A state that will hold things”
-// “We need a state manager”
-// “Stack: push & pop”
-// How do we package states?
-//"Our states are NOT actually holding anything?", "turn states into classes"
-// “What does a state have?”, “what is our definition of a state?”
-
-
-
-//we need to add a state to.......

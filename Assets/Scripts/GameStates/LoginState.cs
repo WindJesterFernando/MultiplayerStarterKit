@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class MainMenuState : AbstractGameState
+public class LoginState : AbstractGameState
 {
     GameObject button;
 
-    public MainMenuState(GameObject button)
+    public LoginState(GameObject button)
     {
         this.button = button;
     }

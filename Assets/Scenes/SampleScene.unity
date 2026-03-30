@@ -250,7 +250,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 111994351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e434dbf069da54d22be1c60dac248acb, type: 3}
+  m_Script: {fileID: 11500000, guid: 42a49533fc0b44bfa9e494631137ead8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
   button: {fileID: 1533924586}

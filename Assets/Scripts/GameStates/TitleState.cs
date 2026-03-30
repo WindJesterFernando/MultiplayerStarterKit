@@ -2,35 +2,37 @@ using UnityEngine;
 
 public class TitleState : AbstractGameState
 {
-    GameObject button;
+    //GameObject button;
+    GameObject titleScreen;
+    
 
-    public TitleState(GameObject button)
+    public TitleState(GameObject titleScreen)
     {
-        this.button = button;
+        this.titleScreen = titleScreen;
     }
 
     public override void LoadGameState()
     {
         Debug.Log("Title State Loaded");
-        button.SetActive(true);
+        titleScreen.SetActive(true);
     }
 
     public override void UnloadGameState()
     {
         Debug.Log("Title State Unloaded");
-        button.SetActive(false);
+        titleScreen.SetActive(false);
     }
 
     public override void Pause()
     {
         Debug.Log("Title State Paused");
-        button.SetActive(false);
+        titleScreen.SetActive(false);
     }
 
     public override void Resume()
     {
         Debug.Log("Title State Resumed");
-        button.SetActive(true);
+        titleScreen.SetActive(true);
     }
 
     public override void Update()
