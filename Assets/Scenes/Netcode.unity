@@ -4880,6 +4880,9 @@ MonoBehaviour:
   titleScreenStartButton: {fileID: 22451692}
   titleScreen: {fileID: 1517424164}
   loginScreen: {fileID: 87696622}
+  createAccountScreen: {fileID: 1612936591}
+  createAccountButton: {fileID: 613456238}
+  loginInstructionText: {fileID: 16378528}
 --- !u!4 &1745332267
 Transform:
   m_ObjectHideFlags: 0
@@ -5532,6 +5535,7 @@ MonoBehaviour:
   createPassVerificationInput: {fileID: 274282559}
   createAccountButton: {fileID: 1660404139}
   createAccountBackButton: {fileID: 1749467163}
+  gameStateManager: {fileID: 1745332265}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

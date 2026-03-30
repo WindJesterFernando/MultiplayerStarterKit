@@ -9,57 +9,50 @@ public class GameStateManager : MonoBehaviour
 
     [SerializeField] GameObject titleScreenStartButton;
     [SerializeField] GameObject titleScreen;
+
     [SerializeField] GameObject loginScreen;
+
+    [SerializeField] GameObject createAccountScreen;
+    [SerializeField] GameObject createAccountButton;
+
+    [SerializeField] GameObject loginInstructionText;
+
 
     Stack<AbstractGameState> gameStateStack;
 
-    TitleState titleState;
-    LoginState loginState;
-    GamePlayState gamePlayState;
+    public TitleState titleState;
+    public LoginState loginState;
+    public CreateAccountState createAccountState;
 
     void Start()
     {
+        NetworkClientProcessing.SetGameStateManager(this);
+
         gameStateStack = new Stack<AbstractGameState>();
 
-        titleScreenStartButton.GetComponent<Button>().onClick.AddListener(FunctionForOurButton);
+        titleState = new TitleState(this, titleScreen, titleScreenStartButton);
 
-        titleState = new TitleState(titleScreen);
-        loginState = new LoginState(loginScreen);
+        loginState = new LoginState(this, loginScreen, createAccountButton, loginInstructionText);
 
+
+        createAccountState = new CreateAccountState(createAccountScreen);
 
         PushGameStateOnStack(titleState);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PopGameStateOffStack();
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     PopGameStateOffStack();
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PopGameStateUntilStateIs(titleState);
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     PopGameStateUntilStateIs(titleState);
+        // }
 
         gameStateStack.Peek().Update();
-    }
-
-    public void FunctionForOurButton()
-    {
-        PushGameStateOnStack(loginState);
-    }
-    public void FunctionForOurButton2()
-    {
-        //PushGameStateOnStack(gamePlayState);
-    }
-    public void FunctionForOurButton3()
-    {
-        //PushGameStateOnStack(GameState.FourState);
-    }
-    public void FunctionForOurButton4()
-    {
-        //PushGameStateOnStack(GameState.OneState);
     }
 
     public void PushGameStateOnStack(AbstractGameState gameState)

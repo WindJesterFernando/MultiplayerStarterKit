@@ -1,40 +1,60 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class LoginState : AbstractGameState
 {
-    GameObject button;
+    GameStateManager gameStateManager;
+    GameObject createAccountButton;
+    GameObject infoText;
+    GameObject loginScreen;
 
-    public LoginState(GameObject button)
+    public LoginState(GameStateManager gameStateManager, GameObject loginScreen, GameObject createAccountButton, GameObject infoText)
     {
-        this.button = button;
+        this.loginScreen = loginScreen;
+        this.gameStateManager = gameStateManager;
+        this.createAccountButton = createAccountButton;
+        this.infoText = infoText;
+
+        createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
     }
 
     public override void LoadGameState()
     {
-        Debug.Log("MainMenuState Loaded");
-        button.SetActive(true);
+        Debug.Log("LoginState Loaded");
+        loginScreen.SetActive(true);
     }
 
     public override void UnloadGameState()
     {
-        Debug.Log("MainMenuState Unloaded");
-        button.SetActive(false);
+        Debug.Log("LoginState Unloaded");
+        loginScreen.SetActive(false);
     }
 
     public override void Pause()
     {
-        Debug.Log("MainMenuState Paused");
-        button.SetActive(false);
+        Debug.Log("LoginState Paused");
+        loginScreen.SetActive(false);
     }
 
     public override void Resume()
     {
-        Debug.Log("MainMenuState Resumed");
-        button.SetActive(true);
+        Debug.Log("LoginState Resumed");
+        loginScreen.SetActive(true);
     }
 
     public override void Update()
     {
-        Debug.Log("MainMenuState Updating");
+        Debug.Log("LoginState Updating");
+    }
+
+    public void CreateAccountButtonClick()
+    {
+        gameStateManager.PushGameStateOnStack(gameStateManager.createAccountState);
+    }
+
+    public void SetInfoText(string info)
+    {
+        infoText.GetComponent<TMP_Text>().text = info;
     }
 }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 static public class NetworkClientProcessing
@@ -13,24 +14,25 @@ static public class NetworkClientProcessing
 
         if (signal == ServerToClientSignal.AccountLoginUserNameError)
         {
-            gameLogic.SetLoginInfoText("Error! User name not found");
+            gameStateManager.loginState.SetInfoText("Error! User name not found");
         }
         else if (signal == ServerToClientSignal.AccountLoginPasswordError)
         {
-            gameLogic.SetLoginInfoText("Error! Password is incorrect");
+            gameStateManager.loginState.SetInfoText("Error! Password is incorrect");
         }
         else if (signal == ServerToClientSignal.AccountCreationUserNameError)
         {
-            gameLogic.SetLoginInfoText("Error! Account name already in use.");
+            gameStateManager.loginState.SetInfoText("Error! Account name already in use.");
         }
         else if (signal == ServerToClientSignal.AccountLoginSuccess)
         {
-            gameLogic.SetLoginInfoText("Login Successful");
+            gameStateManager.loginState.SetInfoText("Login Successful");
         }
         else if (signal == ServerToClientSignal.AccountCreationSuccess)
         {
-            gameLogic.GoBackToLoginScreen();
-            gameLogic.SetLoginInfoText("Account Successfully Created!");
+            gameStateManager.PopGameStateUntilStateIs(gameStateManager.loginState);
+            
+            gameStateManager.loginState.SetInfoText("Account Successfully Created!");
         }
     }
 
@@ -67,7 +69,7 @@ static public class NetworkClientProcessing
 
     #region Setup
     static NetworkClient networkClient;
-    static GameLogic gameLogic;
+    static GameStateManager gameStateManager;
 
     static public void SetNetworkedClient(NetworkClient NetworkClient)
     {
@@ -77,9 +79,9 @@ static public class NetworkClientProcessing
     {
         return networkClient;
     }
-    static public void SetGameLogic(GameLogic GameLogic)
+    static public void SetGameStateManager(GameStateManager gameStateManager)
     {
-        gameLogic = GameLogic;
+        NetworkClientProcessing.gameStateManager = gameStateManager;
     }
 
     #endregion

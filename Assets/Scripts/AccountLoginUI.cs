@@ -14,14 +14,18 @@ public class AccountLoginUI : MonoBehaviour
     [SerializeField]
     GameObject createNameInput, createPassInput, createPassVerificationInput, createAccountButton, createAccountBackButton;
 
+
+    [SerializeField]
+    GameObject gameStateManager;
+
     void Start()
     {
         loginButton.GetComponent<Button>().onClick.AddListener(LoginButtonClick);
-        createButton.GetComponent<Button>().onClick.AddListener(CreateButtonClick);
+        //createButton.GetComponent<Button>().onClick.AddListener(CreateButtonClick);
 
         createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
 
-        createAccountBackButton.GetComponent<Button>().onClick.AddListener(CreateAccountBackButtonClick);
+        //createAccountBackButton.GetComponent<Button>().onClick.AddListener(CreateAccountBackButtonClick);
     }
 
     void Update()
@@ -38,19 +42,6 @@ public class AccountLoginUI : MonoBehaviour
         NetworkClientProcessing.SendMessageToServer(loginMsg, TransportPipeline.ReliableAndInOrder);
     }
 
-    public void CreateButtonClick()
-    {
-        nameInput.SetActive(false);
-        passInput.SetActive(false);
-        loginButton.SetActive(false);
-        createButton.SetActive(false);
-
-        createNameInput.SetActive(true);
-        createPassInput.SetActive(true);
-        createPassVerificationInput.SetActive(true);
-        createAccountButton.SetActive(true);
-        createAccountBackButton.SetActive(true);
-    }
 
     public void CreateAccountButtonClick()
     {
@@ -68,22 +59,23 @@ public class AccountLoginUI : MonoBehaviour
         NetworkClientProcessing.SendMessageToServer(createAccountMsg, TransportPipeline.ReliableAndInOrder);
     }
 
-    public void SetInfoText(string info)
-    {
-        infoText.GetComponent<TMP_Text>().text = info;
-    }
+    // public void SetInfoText(string info)
+    // {
+    //     infoText.GetComponent<TMP_Text>().text = info;
+    // }
 
-    public void CreateAccountBackButtonClick()
-    {
-        nameInput.SetActive(true);
-        passInput.SetActive(true);
-        loginButton.SetActive(true);
-        createButton.SetActive(true);
+    // public void CreateAccountBackButtonClick()
+    // {
+    //     gameStateManager.GetComponent<GameStateManager>().PopGameStateOffStack();
+    //     // nameInput.SetActive(true);
+    //     // passInput.SetActive(true);
+    //     // loginButton.SetActive(true);
+    //     // createButton.SetActive(true);
 
-        createNameInput.SetActive(false);
-        createPassInput.SetActive(false);
-        createPassVerificationInput.SetActive(false);
-        createAccountButton.SetActive(false);
-        createAccountBackButton.SetActive(false);
-    }
+    //     // createNameInput.SetActive(false);
+    //     // createPassInput.SetActive(false);
+    //     // createPassVerificationInput.SetActive(false);
+    //     // createAccountButton.SetActive(false);
+    //     // createAccountBackButton.SetActive(false);
+    // }
 }

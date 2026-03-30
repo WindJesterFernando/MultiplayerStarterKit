@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitleState : AbstractGameState
 {
-    //GameObject button;
     GameObject titleScreen;
-    
+    GameStateManager gameStateManager;
 
-    public TitleState(GameObject titleScreen)
+    public TitleState(GameStateManager gameStateManager, GameObject titleScreen, GameObject titleScreenStartButton)
     {
         this.titleScreen = titleScreen;
+        this.gameStateManager = gameStateManager;
+
+        titleScreenStartButton.GetComponent<Button>().onClick.AddListener(TitleScreenStartClick);
     }
 
     public override void LoadGameState()
@@ -40,5 +43,9 @@ public class TitleState : AbstractGameState
         Debug.Log("Title State Updating");
     }
 
+    public void TitleScreenStartClick()
+    {
+        gameStateManager.PushGameStateOnStack(gameStateManager.loginState);
+    }
 
 }
