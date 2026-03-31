@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 16378531}
   - component: {fileID: 16378530}
   m_Layer: 5
-  m_Name: InfoText (TMP)
+  m_Name: InfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1963,7 +1963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a34155b68f64342991c7ac60a22eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameLogic
-  accountLoginUI: {fileID: 2098901189}
 --- !u!1 &435821452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4882,7 +4881,14 @@ MonoBehaviour:
   loginScreen: {fileID: 87696622}
   createAccountScreen: {fileID: 1612936591}
   createAccountButton: {fileID: 613456238}
+  createAccountBackButton: {fileID: 1749467163}
+  createNameInput: {fileID: 7704159}
+  createPassInput: {fileID: 60879583}
+  createPassVerificationInput: {fileID: 274282559}
   loginInstructionText: {fileID: 16378528}
+  nameInput: {fileID: 2055530031}
+  passInput: {fileID: 1213520065}
+  loginButton: {fileID: 210614333}
 --- !u!4 &1745332267
 Transform:
   m_ObjectHideFlags: 0
@@ -5420,7 +5426,6 @@ GameObject:
   - component: {fileID: 2098901192}
   - component: {fileID: 2098901191}
   - component: {fileID: 2098901190}
-  - component: {fileID: 2098901194}
   m_Layer: 5
   m_Name: CanvasAccountLoginUI
   m_TagString: Untagged
@@ -5513,29 +5518,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2098901194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098901189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2420e079b0c7c45b192ccf8139bcef75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AccountLoginUI
-  nameInput: {fileID: 2055530031}
-  passInput: {fileID: 1213520065}
-  loginButton: {fileID: 210614333}
-  createButton: {fileID: 613456238}
-  infoText: {fileID: 16378528}
-  createNameInput: {fileID: 7704159}
-  createPassInput: {fileID: 60879583}
-  createPassVerificationInput: {fileID: 274282559}
-  createAccountButton: {fileID: 1660404139}
-  createAccountBackButton: {fileID: 1749467163}
-  gameStateManager: {fileID: 1745332265}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

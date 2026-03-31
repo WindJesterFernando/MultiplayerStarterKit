@@ -15,7 +15,17 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] GameObject createAccountScreen;
     [SerializeField] GameObject createAccountButton;
 
+    [SerializeField] GameObject createAccountBackButton;
+
+    [SerializeField] GameObject createNameInput;
+    [SerializeField] GameObject createPassInput;
+    [SerializeField] GameObject createPassVerificationInput;
+
     [SerializeField] GameObject loginInstructionText;
+    
+    [SerializeField] GameObject nameInput;
+    [SerializeField] GameObject passInput;
+    [SerializeField] GameObject loginButton;
 
 
     Stack<AbstractGameState> gameStateStack;
@@ -32,10 +42,11 @@ public class GameStateManager : MonoBehaviour
 
         titleState = new TitleState(this, titleScreen, titleScreenStartButton);
 
-        loginState = new LoginState(this, loginScreen, createAccountButton, loginInstructionText);
+        loginState = new LoginState(this, loginScreen, createAccountButton, loginInstructionText, nameInput, passInput, loginButton);
 
-
-        createAccountState = new CreateAccountState(createAccountScreen);
+;
+        createAccountState = new CreateAccountState(this, createAccountScreen, createAccountButton, 
+            createAccountBackButton, createNameInput, createPassInput, createPassVerificationInput);
 
         PushGameStateOnStack(titleState);
     }

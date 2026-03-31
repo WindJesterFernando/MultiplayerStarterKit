@@ -9,14 +9,35 @@ public class LoginState : AbstractGameState
     GameObject infoText;
     GameObject loginScreen;
 
-    public LoginState(GameStateManager gameStateManager, GameObject loginScreen, GameObject createAccountButton, GameObject infoText)
+    GameObject nameInput;
+    GameObject passInput;
+
+    GameObject loginButton;
+
+    public LoginState(GameStateManager gameStateManager, GameObject loginScreen, GameObject createAccountButton, GameObject infoText, GameObject nameInput, GameObject passInput, GameObject loginButton)
     {
         this.loginScreen = loginScreen;
         this.gameStateManager = gameStateManager;
         this.createAccountButton = createAccountButton;
-        this.infoText = infoText;
+        //this.infoText = infoText;
+
+        this.nameInput = nameInput;
+        this.passInput = passInput;
+        this.loginButton = loginButton;
+
+        foreach (Transform child in loginScreen.transform)
+        {
+            if(child.name == "InfoText")
+            {
+                this.infoText = child.gameObject;
+            }
+        }
+
+        //loginScreen.transform.childCount
+
 
         createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
+        loginButton.GetComponent<Button>().onClick.AddListener(LoginButtonClick);
     }
 
     public override void LoadGameState()
@@ -56,5 +77,14 @@ public class LoginState : AbstractGameState
     public void SetInfoText(string info)
     {
         infoText.GetComponent<TMP_Text>().text = info;
+    }
+
+    public void LoginButtonClick()
+    {
+        string name = nameInput.GetComponent<TMP_InputField>().text;
+        string pass = passInput.GetComponent<TMP_InputField>().text;
+
+        string loginMsg = Utilities.Concatenate((int)ClientToServerSignal.AccountLogin, name, pass);
+        NetworkClientProcessing.SendMessageToServer(loginMsg, TransportPipeline.ReliableAndInOrder);
     }
 }
