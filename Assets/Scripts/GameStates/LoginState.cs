@@ -5,39 +5,35 @@ using TMPro;
 public class LoginState : AbstractGameState
 {
     GameStateManager gameStateManager;
-    GameObject createAccountButton;
-    GameObject infoText;
     GameObject loginScreen;
 
-    GameObject nameInput;
-    GameObject passInput;
+    TMP_Text infoText;
+    TMP_InputField nameInput;
+    TMP_InputField passInput;
+    Button loginButton;
+    Button createAccountButton;
 
-    GameObject loginButton;
-
-    public LoginState(GameStateManager gameStateManager, GameObject loginScreen, GameObject createAccountButton, GameObject infoText, GameObject nameInput, GameObject passInput, GameObject loginButton)
+    public LoginState(GameStateManager gameStateManager, GameObject loginScreen)
     {
         this.loginScreen = loginScreen;
         this.gameStateManager = gameStateManager;
-        this.createAccountButton = createAccountButton;
-        //this.infoText = infoText;
-
-        this.nameInput = nameInput;
-        this.passInput = passInput;
-        this.loginButton = loginButton;
 
         foreach (Transform child in loginScreen.transform)
         {
             if(child.name == "InfoText")
-            {
-                this.infoText = child.gameObject;
-            }
+                infoText = child.gameObject.GetComponent<TMP_Text>();
+            else if(child.name == "NameInput")
+                nameInput = child.gameObject.GetComponent<TMP_InputField>();
+            else if(child.name == "PassInput")
+                passInput = child.gameObject.GetComponent<TMP_InputField>();
+            else if(child.name == "LoginButton")
+                loginButton = child.gameObject.GetComponent<Button>();
+            else if(child.name == "CreateAccountButton")
+                createAccountButton = child.gameObject.GetComponent<Button>();
         }
 
-        //loginScreen.transform.childCount
-
-
-        createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
-        loginButton.GetComponent<Button>().onClick.AddListener(LoginButtonClick);
+        createAccountButton.onClick.AddListener(CreateAccountButtonClick);
+        loginButton.onClick.AddListener(LoginButtonClick);
     }
 
     public override void LoadGameState()
@@ -76,13 +72,13 @@ public class LoginState : AbstractGameState
 
     public void SetInfoText(string info)
     {
-        infoText.GetComponent<TMP_Text>().text = info;
+        infoText.text = info;
     }
 
     public void LoginButtonClick()
     {
-        string name = nameInput.GetComponent<TMP_InputField>().text;
-        string pass = passInput.GetComponent<TMP_InputField>().text;
+        string name = nameInput.text;
+        string pass = passInput.text;
 
         string loginMsg = Utilities.Concatenate((int)ClientToServerSignal.AccountLogin, name, pass);
         NetworkClientProcessing.SendMessageToServer(loginMsg, TransportPipeline.ReliableAndInOrder);

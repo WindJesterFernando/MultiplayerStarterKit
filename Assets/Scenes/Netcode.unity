@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 7704162}
   - component: {fileID: 7704161}
   m_Layer: 5
-  m_Name: CreateNameInputField (TMP)
+  m_Name: NameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,7 +750,7 @@ GameObject:
   - component: {fileID: 60879586}
   - component: {fileID: 60879585}
   m_Layer: 5
-  m_Name: CreatePassInputField (TMP)
+  m_Name: PassInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1701,7 +1701,7 @@ GameObject:
   - component: {fileID: 274282562}
   - component: {fileID: 274282561}
   m_Layer: 5
-  m_Name: CreatePassInputField (TMP)
+  m_Name: PassVerificationInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2597,7 +2597,7 @@ GameObject:
   - component: {fileID: 613456241}
   - component: {fileID: 613456240}
   m_Layer: 5
-  m_Name: CreateButton
+  m_Name: CreateAccountButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3478,7 +3478,7 @@ GameObject:
   - component: {fileID: 1213520068}
   - component: {fileID: 1213520067}
   m_Layer: 5
-  m_Name: PassInputField (TMP)
+  m_Name: PassInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4917,7 +4917,7 @@ GameObject:
   - component: {fileID: 1749467166}
   - component: {fileID: 1749467165}
   m_Layer: 5
-  m_Name: CreateAccountBackButton
+  m_Name: BackToLoginButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5248,7 +5248,7 @@ GameObject:
   - component: {fileID: 2055530034}
   - component: {fileID: 2055530033}
   m_Layer: 5
-  m_Name: NameInputField (TMP)
+  m_Name: NameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

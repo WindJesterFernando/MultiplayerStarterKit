@@ -42,11 +42,10 @@ public class GameStateManager : MonoBehaviour
 
         titleState = new TitleState(this, titleScreen, titleScreenStartButton);
 
-        loginState = new LoginState(this, loginScreen, createAccountButton, loginInstructionText, nameInput, passInput, loginButton);
+        loginState = new LoginState(this, loginScreen);//, createAccountButton, loginInstructionText, nameInput, passInput, loginButton);
 
-;
-        createAccountState = new CreateAccountState(this, createAccountScreen, createAccountButton, 
-            createAccountBackButton, createNameInput, createPassInput, createPassVerificationInput);
+        createAccountState = new CreateAccountState(this, createAccountScreen);//, createAccountButton, 
+            //createAccountBackButton, createNameInput, createPassInput, createPassVerificationInput);
 
         PushGameStateOnStack(titleState);
     }

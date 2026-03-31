@@ -1,55 +1,66 @@
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
 using TMPro;
 
 public class CreateAccountState : AbstractGameState
 {
     GameStateManager gameStateManager;
-    GameObject screen;
-    GameObject createAccountButton;
-    GameObject backToLoginButton;
+    GameObject createAccountScreen;
+    TMP_Text infoText;
+    TMP_InputField nameInput;
+    TMP_InputField passInput;
+    TMP_InputField passVerificationInput;
+    Button createAccountButton;
+    Button backToLoginButton;
 
-    GameObject createNameInput;
-    GameObject createPassInput;
-    GameObject createPassVerificationInput;
 
-    public CreateAccountState(GameStateManager gameStateManager, GameObject screen, GameObject createAccountButton, GameObject backToLoginButton, GameObject createNameInput, GameObject createPassInput, GameObject createPassVerificationInput)
+    public CreateAccountState(GameStateManager gameStateManager, GameObject createAccountScreen)//, GameObject createAccountButton, GameObject backToLoginButton, GameObject createNameInput, GameObject createPassInput, GameObject createPassVerificationInput)
     {
         this.gameStateManager = gameStateManager;
-        this.screen = screen;
-        this.createAccountButton = createAccountButton;
-        this.backToLoginButton = backToLoginButton;
-        this.createNameInput = createNameInput;
-        this.createPassInput = createPassInput;
-        this.createPassVerificationInput = createPassVerificationInput;
+        this.createAccountScreen = createAccountScreen;
 
-        createAccountButton.GetComponent<Button>().onClick.AddListener(CreateAccountButtonClick);
-        backToLoginButton.GetComponent<Button>().onClick.AddListener(BackToLoginState);
+        foreach (Transform child in createAccountScreen.transform)
+        {
+            if(child.name == "InfoText")
+                infoText = child.gameObject.GetComponent<TMP_Text>();
+            else if(child.name == "NameInput")
+                nameInput = child.gameObject.GetComponent<TMP_InputField>();
+            else if(child.name == "PassInput")
+                passInput = child.gameObject.GetComponent<TMP_InputField>();
+            else if(child.name == "PassVerificationInput")
+                passVerificationInput = child.gameObject.GetComponent<TMP_InputField>();
+            else if(child.name == "CreateAccountButton")
+                createAccountButton = child.gameObject.GetComponent<Button>();
+            else if(child.name == "BackToLoginButton")
+                backToLoginButton = child.gameObject.GetComponent<Button>();
+        }
+        createAccountButton.onClick.AddListener(CreateAccountButtonClick);
+        backToLoginButton.onClick.AddListener(BackToLoginState);
 
     }
 
     public override void LoadGameState()
     {
         Debug.Log("CreateAccountState Loaded");
-        screen.SetActive(true);
+        createAccountScreen.SetActive(true);
     }
 
     public override void UnloadGameState()
     {
         Debug.Log("CreateAccountState Unloaded");
-        screen.SetActive(false);
+        createAccountScreen.SetActive(false);
     }
 
     public override void Pause()
     {
         Debug.Log("CreateAccountState Paused");
-        screen.SetActive(false);
+        createAccountScreen.SetActive(false);
     }
 
     public override void Resume()
     {
         Debug.Log("CreateAccountState Resumed");
-        screen.SetActive(true);
+        createAccountScreen.SetActive(true);
     }
 
     public override void Update()
@@ -59,9 +70,9 @@ public class CreateAccountState : AbstractGameState
 
     public void CreateAccountButtonClick()
     {
-        string name = createNameInput.GetComponent<TMP_InputField>().text;
-        string pass = createPassInput.GetComponent<TMP_InputField>().text;
-        string passVerification = createPassVerificationInput.GetComponent<TMP_InputField>().text;
+        string name = nameInput.text;
+        string pass = passInput.text;
+        string passVerification = passVerificationInput.text;
 
         if (pass != passVerification)
         {
