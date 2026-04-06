@@ -22,7 +22,7 @@ static public class NetworkClientProcessing
         }
         else if (signal == ServerToClientSignal.AccountCreationUserNameError)
         {
-            GameStateManager.loginState.SetInfoText("Error! Account name already in use.");
+            GameStateManager.createAccountState.SetInfoText("Error! Account name already in use.");
         }
         else if (signal == ServerToClientSignal.AccountLoginSuccess)
         {

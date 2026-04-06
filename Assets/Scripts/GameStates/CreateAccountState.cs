@@ -12,24 +12,23 @@ public class CreateAccountState : AbstractGameState
     Button createAccountButton;
     Button backToLoginButton;
 
-
     public CreateAccountState(GameObject createAccountScreen)
     {
         this.createAccountScreen = createAccountScreen;
 
         foreach (Transform child in createAccountScreen.transform)
         {
-            if(child.name == "InfoText")
+            if (child.name == "InfoText")
                 infoText = child.gameObject.GetComponent<TMP_Text>();
-            else if(child.name == "NameInput")
+            else if (child.name == "NameInput")
                 nameInput = child.gameObject.GetComponent<TMP_InputField>();
-            else if(child.name == "PassInput")
+            else if (child.name == "PassInput")
                 passInput = child.gameObject.GetComponent<TMP_InputField>();
-            else if(child.name == "PassVerificationInput")
+            else if (child.name == "PassVerificationInput")
                 passVerificationInput = child.gameObject.GetComponent<TMP_InputField>();
-            else if(child.name == "CreateAccountButton")
+            else if (child.name == "CreateAccountButton")
                 createAccountButton = child.gameObject.GetComponent<Button>();
-            else if(child.name == "BackToLoginButton")
+            else if (child.name == "BackToLoginButton")
                 backToLoginButton = child.gameObject.GetComponent<Button>();
         }
         createAccountButton.onClick.AddListener(CreateAccountButtonClick);
@@ -74,7 +73,7 @@ public class CreateAccountState : AbstractGameState
 
         if (pass != passVerification)
         {
-            //infoText.GetComponent<TMP_Text>().text = "passwords do not match";
+            infoText.text = "passwords do not match";
             return;
         }
 
@@ -85,6 +84,11 @@ public class CreateAccountState : AbstractGameState
     public void BackToLoginState()
     {
         GameStateManager.PopGameStateUntilStateIs(GameStateManager.loginState);
+    }
+
+    public void SetInfoText(string info)
+    {
+        infoText.text = info;
     }
 
 }
