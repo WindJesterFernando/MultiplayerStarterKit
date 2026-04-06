@@ -27,6 +27,7 @@ static public class NetworkClientProcessing
         else if (signal == ServerToClientSignal.AccountLoginSuccess)
         {
             GameStateManager.loginState.SetInfoText("Login Successful");
+            GameStateManager.PushGameStateOnStack(GameStateManager.lobbyState);
         }
         else if (signal == ServerToClientSignal.AccountCreationSuccess)
         {

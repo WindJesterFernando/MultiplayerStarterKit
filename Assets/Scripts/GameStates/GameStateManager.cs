@@ -8,6 +8,7 @@ static public class GameStateManager
     static public TitleState titleState;
     static public LoginState loginState;
     static public CreateAccountState createAccountState;
+    static public LobbyState lobbyState;
 
     static public void Initialize(BootStrapper bootStrapper)
     {
@@ -15,6 +16,7 @@ static public class GameStateManager
         titleState = new TitleState(bootStrapper.titleScreen);
         loginState = new LoginState(bootStrapper.loginScreen);
         createAccountState = new CreateAccountState(bootStrapper.createAccountScreen);
+        lobbyState = new LobbyState(bootStrapper.lobbyScreen);
 
         PushGameStateOnStack(titleState);
     }
