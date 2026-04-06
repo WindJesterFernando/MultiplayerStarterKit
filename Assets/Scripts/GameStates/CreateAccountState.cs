@@ -4,7 +4,6 @@ using TMPro;
 
 public class CreateAccountState : AbstractGameState
 {
-    GameStateManager gameStateManager;
     GameObject createAccountScreen;
     TMP_Text infoText;
     TMP_InputField nameInput;
@@ -14,9 +13,8 @@ public class CreateAccountState : AbstractGameState
     Button backToLoginButton;
 
 
-    public CreateAccountState(GameStateManager gameStateManager, GameObject createAccountScreen)//, GameObject createAccountButton, GameObject backToLoginButton, GameObject createNameInput, GameObject createPassInput, GameObject createPassVerificationInput)
+    public CreateAccountState(GameObject createAccountScreen)
     {
-        this.gameStateManager = gameStateManager;
         this.createAccountScreen = createAccountScreen;
 
         foreach (Transform child in createAccountScreen.transform)
@@ -86,7 +84,7 @@ public class CreateAccountState : AbstractGameState
 
     public void BackToLoginState()
     {
-        gameStateManager.PopGameStateUntilStateIs(gameStateManager.loginState);
+        GameStateManager.PopGameStateUntilStateIs(GameStateManager.loginState);
     }
 
 }

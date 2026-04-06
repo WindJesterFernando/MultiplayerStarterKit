@@ -4,14 +4,19 @@ using UnityEngine.UI;
 public class TitleState : AbstractGameState
 {
     GameObject titleScreen;
-    GameStateManager gameStateManager;
+    Button startButton;
 
-    public TitleState(GameStateManager gameStateManager, GameObject titleScreen, GameObject titleScreenStartButton)
+    public TitleState(GameObject titleScreen)
     {
         this.titleScreen = titleScreen;
-        this.gameStateManager = gameStateManager;
 
-        titleScreenStartButton.GetComponent<Button>().onClick.AddListener(TitleScreenStartClick);
+        foreach (Transform child in titleScreen.transform)
+        {
+            if(child.name == "StartButton")
+                startButton = child.gameObject.GetComponent<Button>();
+        }
+
+        startButton.onClick.AddListener(TitleScreenStartClick);
     }
 
     public override void LoadGameState()
@@ -45,7 +50,7 @@ public class TitleState : AbstractGameState
 
     public void TitleScreenStartClick()
     {
-        gameStateManager.PushGameStateOnStack(gameStateManager.loginState);
+        GameStateManager.PushGameStateOnStack(GameStateManager.loginState);
     }
 
 }

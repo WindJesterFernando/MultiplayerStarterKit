@@ -1919,50 +1919,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
---- !u!1 &389439476
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 389439477}
-  - component: {fileID: 389439478}
-  m_Layer: 0
-  m_Name: GameLogic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &389439477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389439476}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 502.15433, y: 232.65643, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &389439478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389439476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a34155b68f64342991c7ac60a22eac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameLogic
 --- !u!1 &435821452
 GameObject:
   m_ObjectHideFlags: 0
@@ -4856,39 +4812,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1745332267}
-  - component: {fileID: 1745332266}
+  - component: {fileID: 1745332268}
   m_Layer: 0
-  m_Name: GameStateManager
+  m_Name: BootStrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1745332266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1745332265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42a49533fc0b44bfa9e494631137ead8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
-  titleScreenStartButton: {fileID: 22451692}
-  titleScreen: {fileID: 1517424164}
-  loginScreen: {fileID: 87696622}
-  createAccountScreen: {fileID: 1612936591}
-  createAccountButton: {fileID: 613456238}
-  createAccountBackButton: {fileID: 1749467163}
-  createNameInput: {fileID: 7704159}
-  createPassInput: {fileID: 60879583}
-  createPassVerificationInput: {fileID: 274282559}
-  loginInstructionText: {fileID: 16378528}
-  nameInput: {fileID: 2055530031}
-  passInput: {fileID: 1213520065}
-  loginButton: {fileID: 210614333}
 --- !u!4 &1745332267
 Transform:
   m_ObjectHideFlags: 0
@@ -4904,6 +4835,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745332268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745332265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea8b3a755ff6443b5976be5174b83f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BootStrapper
+  titleScreen: {fileID: 1517424164}
+  loginScreen: {fileID: 87696622}
+  createAccountScreen: {fileID: 1612936591}
 --- !u!1 &1749467163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,7 +5470,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 890108580}
   - {fileID: 1745332267}
-  - {fileID: 389439477}
   - {fileID: 24511739}
   - {fileID: 2098901193}
   - {fileID: 1457542909}

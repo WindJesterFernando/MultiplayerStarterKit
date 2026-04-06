@@ -14,25 +14,25 @@ static public class NetworkClientProcessing
 
         if (signal == ServerToClientSignal.AccountLoginUserNameError)
         {
-            gameStateManager.loginState.SetInfoText("Error! User name not found");
+            GameStateManager.loginState.SetInfoText("Error! User name not found");
         }
         else if (signal == ServerToClientSignal.AccountLoginPasswordError)
         {
-            gameStateManager.loginState.SetInfoText("Error! Password is incorrect");
+            GameStateManager.loginState.SetInfoText("Error! Password is incorrect");
         }
         else if (signal == ServerToClientSignal.AccountCreationUserNameError)
         {
-            gameStateManager.loginState.SetInfoText("Error! Account name already in use.");
+            GameStateManager.loginState.SetInfoText("Error! Account name already in use.");
         }
         else if (signal == ServerToClientSignal.AccountLoginSuccess)
         {
-            gameStateManager.loginState.SetInfoText("Login Successful");
+            GameStateManager.loginState.SetInfoText("Login Successful");
         }
         else if (signal == ServerToClientSignal.AccountCreationSuccess)
         {
-            gameStateManager.PopGameStateUntilStateIs(gameStateManager.loginState);
+            GameStateManager.PopGameStateUntilStateIs(GameStateManager.loginState);
             
-            gameStateManager.loginState.SetInfoText("Account Successfully Created!");
+            GameStateManager.loginState.SetInfoText("Account Successfully Created!");
         }
     }
 
@@ -69,7 +69,6 @@ static public class NetworkClientProcessing
 
     #region Setup
     static NetworkClient networkClient;
-    static GameStateManager gameStateManager;
 
     static public void SetNetworkedClient(NetworkClient NetworkClient)
     {
@@ -78,10 +77,6 @@ static public class NetworkClientProcessing
     static public NetworkClient GetNetworkedClient()
     {
         return networkClient;
-    }
-    static public void SetGameStateManager(GameStateManager gameStateManager)
-    {
-        NetworkClientProcessing.gameStateManager = gameStateManager;
     }
 
     #endregion
