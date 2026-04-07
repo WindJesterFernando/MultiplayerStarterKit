@@ -6,7 +6,9 @@ public class LobbyState : AbstractGameState
 {
     GameObject lobbyScreen;
 
-    Button lobbyButton;
+    //Button lobbyButton;
+
+    TMP_Text accountNameDisplay;
 
     public LobbyState(GameObject lobbyScreen)
     {
@@ -14,12 +16,15 @@ public class LobbyState : AbstractGameState
 
         foreach (Transform child in lobbyScreen.transform)
         {
-            if(child.name == "LobbyButton")
-                lobbyButton = child.gameObject.GetComponent<Button>();
+            if(child.name == "AccountNameDisplay")
+                accountNameDisplay = child.gameObject.GetComponent<TMP_Text>();
+
+            // if(child.name == "LobbyButton")
+            //     lobbyButton = child.gameObject.GetComponent<Button>();
         }
 
         // createAccountButton.onClick.AddListener(CreateAccountButtonClick);
-        lobbyButton.onClick.AddListener(LobbyClick);
+        //lobbyButton.onClick.AddListener(LobbyClick);
     }
 
     public override void LoadGameState()
@@ -51,9 +56,16 @@ public class LobbyState : AbstractGameState
         Debug.Log("LobbyState Updating");
     }
 
-    public void LobbyClick()
+    public void SetAccountName(string name)
     {
-        string msg = Utilities.Concatenate((int)ClientToServerSignal.ClientTestMsg, "msg from client");
-        NetworkClientProcessing.SendMessageToServer(msg, TransportPipeline.ReliableAndInOrder);
+        accountNameDisplay.text = name;
     }
+
+    // public void LobbyClick()
+    // {
+    //     string msg = Utilities.Concatenate((int)ClientToServerSignal.ClientTestMsg, "msg from client");
+    //     NetworkClientProcessing.SendMessageToServer(msg, TransportPipeline.ReliableAndInOrder);
+    // }
+
+    
 }

@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 static public class NetworkClientProcessing
 {
@@ -28,6 +29,9 @@ static public class NetworkClientProcessing
         {
             GameStateManager.loginState.SetInfoText("Login Successful");
             GameStateManager.PushGameStateOnStack(GameStateManager.lobbyState);
+            
+            string name = GameStateManager.loginState.GetAccountName();
+            GameStateManager.lobbyState.SetAccountName(name);
         }
         else if (signal == ServerToClientSignal.AccountCreationSuccess)
         {

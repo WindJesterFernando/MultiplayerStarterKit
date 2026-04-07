@@ -81,4 +81,9 @@ public class LoginState : AbstractGameState
         string loginMsg = Utilities.Concatenate((int)ClientToServerSignal.AccountLogin, name, pass);
         NetworkClientProcessing.SendMessageToServer(loginMsg, TransportPipeline.ReliableAndInOrder);
     }
+
+    public string GetAccountName()
+    {
+        return nameInput.text;
+    }
 }
