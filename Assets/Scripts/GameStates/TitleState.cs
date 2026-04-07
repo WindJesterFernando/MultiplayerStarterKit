@@ -45,7 +45,7 @@ public class TitleState : AbstractGameState
 
     public override void Update()
     {
-        Debug.Log("Title State Updating");
+        //Debug.Log("Title State Updating");
     }
 
     public void TitleScreenStartClick()
