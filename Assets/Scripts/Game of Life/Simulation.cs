@@ -1,12 +1,25 @@
+using System;
+
 static public class Simulation
 {
-    public const int SizeX = 20;
-    public const int SizeY = 20;
+    public const int SizeX = 50;
+    public const int SizeY = 50;
 
     static public bool[,] gridCells;
 
+    static public int generation;
+
+    static long timeSinceLastBenchmark = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+    //static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
+
+    //static public bool bufferIsLocked;
+
     static public void GenerateGrid()
     {
+        // bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
+        // bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
+
         gridCells = new bool[SizeX, SizeY];
 
         for (int x = 0; x < SizeX; x++)
@@ -31,6 +44,44 @@ static public class Simulation
         }
 
         gridCells = newGrid;
+        generation++;
+
+        ///UnityEngine.Debug.Log("gen == " + generation);
+
+        // lock (bufferToLoadIntoVisuals)
+        // {
+        //     if (!bufferToLoadIntoVisuals.hasNewData)
+        //     {
+        //         for (int x = 0; x < Simulation.SizeX; x++)
+        //         {
+        //             for (int y = 0; y < Simulation.SizeY; y++)
+        //             {
+        //                 bufferToLoadIntoVisuals.gridCells[x, y] = gridCells[x, y];
+        //             }
+        //         }
+
+        //         //bufferToLoadIntoVisuals.gridCells = gridCells;
+        //         bufferToLoadIntoVisuals.hasNewData = true;
+        //     }
+        // }
+
+
+        if (generation % 1000 == 0)
+        {
+            UnityEngine.Debug.Log("gen == " + generation);
+
+            long newTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            long timeDif = newTimeStamp - timeSinceLastBenchmark;
+
+            UnityEngine.Debug.Log("time == " + timeDif);
+
+            timeSinceLastBenchmark = newTimeStamp;
+        }
+
+
+        if (generation < 100000)
+            ProcessSimCycle();
     }
 
     static public int CountAliveNeighbours(int x, int y)
@@ -147,4 +198,12 @@ static public class Simulation
         return false;
     }
 
+}
+
+
+public class BufferToLoadIntoVisuals
+{
+    public bool[,] gridCells;
+
+    public bool hasNewData;
 }

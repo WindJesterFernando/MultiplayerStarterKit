@@ -1,27 +1,68 @@
 using UnityEngine;
+using System.Threading;
+using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
     GameObject[,] gridVisuals;
+    Thread simulationThread;
 
     void Start()
     {
         Simulation.GenerateGrid();
-        CreateVisuals();
+        //CreateVisuals();
+
+        simulationThread = new Thread(new ThreadStart(Simulation.ProcessSimCycle));
+        simulationThread.Start();
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        // Simulation.ProcessSimCycle();
+        //if (//simulationThread.ThreadState != ThreadState.Running)
+        //if(!simulationThread.IsAlive)
         {
-            Simulation.ProcessSimCycle();
-            DestroyVisuals();
-            CreateVisuals();
+            // DestroyVisuals();
+            // CreateVisuals();
+
         }
+
+        //Simulation.ProcessSimCycle();
+
+        //}
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     DestroyVisuals();
+        //     CreateVisuals();
+        // }
     }
 
     private void CreateVisuals()
     {
+        bool[,] gridCells = new bool[Simulation.SizeX, Simulation.SizeY];
+
+        // lock (Simulation.bufferToLoadIntoVisuals)
+        // {
+        //     if (Simulation.bufferToLoadIntoVisuals.hasNewData)
+        //     {
+        //         for (int x = 0; x < Simulation.SizeX; x++)
+        //         {
+        //             for (int y = 0; y < Simulation.SizeY; y++)
+        //             {
+        //                 gridCells[x, y] = Simulation.bufferToLoadIntoVisuals.gridCells[x, y];
+        //             }
+        //         }
+
+        //         //gridCells = Simulation.bufferToLoadIntoVisuals.gridCells;
+
+        //         Simulation.bufferToLoadIntoVisuals.hasNewData = false;
+        //     }
+        // }
+
+
         gridVisuals = new GameObject[Simulation.SizeX, Simulation.SizeY];
 
         for (int x = 0; x < Simulation.SizeX; x++)
@@ -34,7 +75,7 @@ public class GridManager : MonoBehaviour
                 spriteRenderer.sprite = Resources.Load<Sprite>("Square");
                 cell.transform.position = new Vector3(x - Simulation.SizeX / 2, y - Simulation.SizeY / 2, 0);
 
-                if (Simulation.gridCells[x, y])
+                if (gridCells[x, y])
                     spriteRenderer.color = Color.gray;
                 else
                     spriteRenderer.color = Color.black;

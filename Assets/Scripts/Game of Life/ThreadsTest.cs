@@ -82,7 +82,7 @@ public class ThreadsTest : MonoBehaviour
 
     public static void DataProblemThread()
     {
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             lock (numbers)
             {
@@ -94,7 +94,7 @@ public class ThreadsTest : MonoBehaviour
 
     public static void DataProblemThread2()
     {
-        for (int i = 0; i < 100000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             lock (numbers)
             {
