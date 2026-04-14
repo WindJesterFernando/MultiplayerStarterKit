@@ -34,7 +34,7 @@ public class GridManager : MonoBehaviour
                 spriteRenderer.sprite = Resources.Load<Sprite>("Square");
                 cell.transform.position = new Vector3(x - Simulation.SizeX / 2, y - Simulation.SizeY / 2, 0);
 
-                if (Simulation.grid[x, y])
+                if (Simulation.gridCells[x, y])
                     spriteRenderer.color = Color.gray;
                 else
                     spriteRenderer.color = Color.black;
