@@ -14,20 +14,13 @@ static public class Simulation
 
     static public Queue<string> debugLogQueue;
 
-    //static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
-
     static public Queue<bool[,]> toLoadIntoVisualsQueue;
-
-    // static public bool bufferIsLocked;
 
     static public void GenerateGrid()
     {
         debugLogQueue = new Queue<string>();
 
         toLoadIntoVisualsQueue = new Queue<bool[,]>();
-
-        // bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
-        // bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
 
         gridCells = new bool[SizeX, SizeY];
 
@@ -44,7 +37,6 @@ static public class Simulation
     {
         while (generation < 100000)
         {
-
             #region Process Next Generation of Sim
 
             generation++;
@@ -79,7 +71,6 @@ static public class Simulation
             }
 
             #endregion
-
 
             if (toLoadIntoVisualsQueue.Count == 0)
             {
@@ -226,11 +217,3 @@ static public class Simulation
     }
 
 }
-
-
-// public class BufferToLoadIntoVisuals
-// {
-//     public bool[,] gridCells;
-
-//     public bool hasNewData;
-// }

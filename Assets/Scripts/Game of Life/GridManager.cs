@@ -50,8 +50,6 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void CreateCell(int x, int y, bool isAlive)
