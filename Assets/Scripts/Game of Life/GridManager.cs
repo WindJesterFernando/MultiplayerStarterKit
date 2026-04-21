@@ -6,12 +6,10 @@ public class GridManager : MonoBehaviour
     GameObject[,] gridVisuals;
     Thread simulationThread;
 
-    bool isFirstUpdate = true;
-
     void Start()
     {
         Simulation.GenerateGrid();
-        
+
         simulationThread = new Thread(new ThreadStart(Simulation.ProcessSimCycle));
         simulationThread.Start();
 
@@ -20,7 +18,6 @@ public class GridManager : MonoBehaviour
 
     void Update()
     {
-
         lock (Simulation.debugLogQueue)
         {
             while (Simulation.debugLogQueue.Count > 0)
@@ -29,29 +26,6 @@ public class GridManager : MonoBehaviour
 
         DestroyVisuals();
         CreateVisuals();
-
-
-
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        // Simulation.ProcessSimCycle();
-        //if (//simulationThread.ThreadState != ThreadState.Running)
-        //if(!simulationThread.IsAlive)
-        {
-            // DestroyVisuals();
-            // CreateVisuals();
-
-        }
-
-        //Simulation.ProcessSimCycle();
-
-        //}
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     DestroyVisuals();
-        //     CreateVisuals();
-        // }
     }
 
     private void CreateVisuals()
@@ -66,16 +40,7 @@ public class GridManager : MonoBehaviour
                 {
                     for (int y = 0; y < Simulation.SizeY; y++)
                     {
-                        GameObject cell = new GameObject();
-                        cell.name = "cell " + x + ", " + y;
-                        SpriteRenderer spriteRenderer = cell.AddComponent<SpriteRenderer>();
-                        spriteRenderer.sprite = Resources.Load<Sprite>("Square");
-                        cell.transform.position = new Vector3(x - Simulation.SizeX / 2, y - Simulation.SizeY / 2, 0);
-
-                        if (Simulation.bufferToLoadIntoVisuals.gridCells[x, y])
-                            spriteRenderer.color = Color.gray;
-                        else
-                            spriteRenderer.color = Color.black;
+                        CreateCell(x, y, Simulation.bufferToLoadIntoVisuals.gridCells[x, y]);
 
                         //gridCells[x, y] = Simulation.bufferToLoadIntoVisuals.gridCells[x, y];
                     }
@@ -88,33 +53,25 @@ public class GridManager : MonoBehaviour
         }
 
 
-        // gridVisuals = new GameObject[Simulation.SizeX, Simulation.SizeY];
-
-        // for (int x = 0; x < Simulation.SizeX; x++)
-        // {
-        //     for (int y = 0; y < Simulation.SizeY; y++)
-        //     {
-        //         GameObject cell = new GameObject();
-        //         cell.name = "cell " + x + ", " + y;
-        //         SpriteRenderer spriteRenderer = cell.AddComponent<SpriteRenderer>();
-        //         spriteRenderer.sprite = Resources.Load<Sprite>("Square");
-        //         cell.transform.position = new Vector3(x - Simulation.SizeX / 2, y - Simulation.SizeY / 2, 0);
-
-        //         if (gridCells[x, y])
-        //             spriteRenderer.color = Color.gray;
-        //         else
-        //             spriteRenderer.color = Color.black;
-
-        //         gridVisuals[x, y] = cell;
-        //     }
-        // }
     }
 
-    //private void CreateCell
+    private void CreateCell(int x, int y, bool isAlive)
+    {
+        GameObject cell = new GameObject();
+        cell.name = "cell " + x + ", " + y;
+        SpriteRenderer spriteRenderer = cell.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = Resources.Load<Sprite>("Square");
+        cell.transform.position = new Vector3(x - Simulation.SizeX / 2, y - Simulation.SizeY / 2, 0);
+
+        if (isAlive)
+            spriteRenderer.color = Color.gray;
+        else
+            spriteRenderer.color = Color.black;
+    }
 
     private void DestroyVisuals()
     {
-        if(gridVisuals == null)
+        if (gridVisuals == null)
             return;
 
         foreach (GameObject cell in gridVisuals)
@@ -124,3 +81,10 @@ public class GridManager : MonoBehaviour
     }
 
 }
+
+
+//speed up bottleneck
+//avoid bottleneck
+//Egor's application of multi thread
+//
+//

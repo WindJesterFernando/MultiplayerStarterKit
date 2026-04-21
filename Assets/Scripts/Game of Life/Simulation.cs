@@ -25,7 +25,6 @@ static public class Simulation
         bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
         bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
 
-
         gridCells = new bool[SizeX, SizeY];
 
         for (int x = 0; x < SizeX; x++)
@@ -78,7 +77,6 @@ static public class Simulation
             #endregion
 
 
-
             lock (bufferToLoadIntoVisuals)
             {
                 if (!bufferToLoadIntoVisuals.hasNewData)
@@ -97,26 +95,12 @@ static public class Simulation
             }
         }
 
-
         lock (debugLogQueue)
         {
             debugLogQueue.Enqueue("Done!!!!");
         }
 
-
-
-
-        ///UnityEngine.Debug.Log("gen == " + generation);
-
-
-
-
-
-
-        // if (generation == 100000 -1)
-        //     UnityEngine.Debug.Log("final");
-
-
+        //Don't use, recursion will kill Unity and you will be sad.
         // if (generation < 100000)
         //     ProcessSimCycle();
     }
