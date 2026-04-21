@@ -1,24 +1,30 @@
 using UnityEngine;
 using System.Threading;
-using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
     GameObject[,] gridVisuals;
     Thread simulationThread;
 
+    bool isFirstUpdate = true;
+
     void Start()
     {
         Simulation.GenerateGrid();
         //CreateVisuals();
 
-        simulationThread = new Thread(new ThreadStart(Simulation.ProcessSimCycle));
-        simulationThread.Start();
-
     }
 
     void Update()
     {
+        if (isFirstUpdate)
+        {
+            isFirstUpdate = false;
+
+            simulationThread = new Thread(new ThreadStart(Simulation.ProcessSimCycle));
+            simulationThread.Start();
+        }
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         // Simulation.ProcessSimCycle();

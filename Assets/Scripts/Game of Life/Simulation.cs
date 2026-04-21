@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 static public class Simulation
 {
@@ -9,7 +10,7 @@ static public class Simulation
 
     static public int generation;
 
-    static long timeSinceLastBenchmark = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    //static long timeSinceLastBenchmark = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
     //static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
 
@@ -33,17 +34,17 @@ static public class Simulation
 
     static public void ProcessSimCycle()
     {
-        bool[,] newGrid = new bool[SizeX, SizeY];
+        // bool[,] newGrid = new bool[SizeX, SizeY];
 
-        for (int x = 0; x < SizeX; x++)
-        {
-            for (int y = 0; y < SizeY; y++)
-            {
-                newGrid[x, y] = DetermineCellLifeState(x, y);
-            }
-        }
+        // for (int x = 0; x < SizeX; x++)
+        // {
+        //     for (int y = 0; y < SizeY; y++)
+        //     {
+        //         //newGrid[x, y] = DetermineCellLifeState(x, y);
+        //     }
+        // }
 
-        gridCells = newGrid;
+        // gridCells = newGrid;
         generation++;
 
         ///UnityEngine.Debug.Log("gen == " + generation);
@@ -68,17 +69,21 @@ static public class Simulation
 
         if (generation % 1000 == 0)
         {
-            UnityEngine.Debug.Log("gen == " + generation);
+            //UnityEngine.Debug.Log("gen == " + generation);
 
-            long newTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            //long newTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            long timeDif = newTimeStamp - timeSinceLastBenchmark;
+            //long timeDif = newTimeStamp - timeSinceLastBenchmark;
 
-            UnityEngine.Debug.Log("time == " + timeDif);
+            //UnityEngine.Debug.Log("time == " + timeDif);
 
-            timeSinceLastBenchmark = newTimeStamp;
+            //timeSinceLastBenchmark = newTimeStamp;
         }
 
+
+        // if (generation == 100000 -1)
+        //     UnityEngine.Debug.Log("final");
+                            
 
         if (generation < 100000)
             ProcessSimCycle();
