@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 static public class Simulation
 {
-    public const int SizeX = 50;
-    public const int SizeY = 50;
+    public const int SizeX = 100;
+    public const int SizeY = 100;
 
     static public bool[,] gridCells;
 

@@ -30,25 +30,34 @@ public class GridManager : MonoBehaviour
 
     private void CreateVisuals()
     {
-        //bool[,] gridCells = new bool[Simulation.SizeX, Simulation.SizeY];
+        bool[,] gridCells = null;
 
         lock (Simulation.bufferToLoadIntoVisuals)
         {
             if (Simulation.bufferToLoadIntoVisuals.hasNewData)
             {
+                gridCells = new bool[Simulation.SizeX, Simulation.SizeY];
+
                 for (int x = 0; x < Simulation.SizeX; x++)
                 {
                     for (int y = 0; y < Simulation.SizeY; y++)
                     {
-                        CreateCell(x, y, Simulation.bufferToLoadIntoVisuals.gridCells[x, y]);
-
-                        //gridCells[x, y] = Simulation.bufferToLoadIntoVisuals.gridCells[x, y];
+                        gridCells[x, y] = Simulation.bufferToLoadIntoVisuals.gridCells[x, y];
                     }
                 }
 
-                //gridCells = Simulation.bufferToLoadIntoVisuals.gridCells;
-
                 Simulation.bufferToLoadIntoVisuals.hasNewData = false;
+            }
+        }
+
+        if (gridCells != null)
+        {
+            for (int x = 0; x < Simulation.SizeX; x++)
+            {
+                for (int y = 0; y < Simulation.SizeY; y++)
+                {
+                    CreateCell(x, y, gridCells[x, y]);
+                }
             }
         }
 
