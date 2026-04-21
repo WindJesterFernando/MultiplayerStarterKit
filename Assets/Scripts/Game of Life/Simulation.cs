@@ -14,7 +14,9 @@ static public class Simulation
 
     static public Queue<string> debugLogQueue;
 
-    static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
+    //static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
+
+    static public Queue<bool[,]> toLoadIntoVisualsQueue;
 
     // static public bool bufferIsLocked;
 
@@ -22,8 +24,10 @@ static public class Simulation
     {
         debugLogQueue = new Queue<string>();
 
-        bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
-        bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
+        toLoadIntoVisualsQueue = new Queue<bool[,]>();
+
+        // bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
+        // bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
 
         gridCells = new bool[SizeX, SizeY];
 
@@ -77,22 +81,24 @@ static public class Simulation
             #endregion
 
 
-            lock (bufferToLoadIntoVisuals)
+            if (toLoadIntoVisualsQueue.Count == 0)
             {
-                if (!bufferToLoadIntoVisuals.hasNewData)
-                {
-                    for (int x = 0; x < Simulation.SizeX; x++)
-                    {
-                        for (int y = 0; y < Simulation.SizeY; y++)
-                        {
-                            bufferToLoadIntoVisuals.gridCells[x, y] = gridCells[x, y];
-                        }
-                    }
+                bool[,] buffer = new bool[Simulation.SizeX, Simulation.SizeY];
 
-                    //bufferToLoadIntoVisuals.gridCells = gridCells;
-                    bufferToLoadIntoVisuals.hasNewData = true;
+                for (int x = 0; x < Simulation.SizeX; x++)
+                {
+                    for (int y = 0; y < Simulation.SizeY; y++)
+                    {
+                        buffer[x, y] = gridCells[x, y];
+                    }
+                }
+
+                lock (toLoadIntoVisualsQueue)
+                {
+                    toLoadIntoVisualsQueue.Enqueue(buffer);
                 }
             }
+
         }
 
         lock (debugLogQueue)
@@ -222,9 +228,9 @@ static public class Simulation
 }
 
 
-public class BufferToLoadIntoVisuals
-{
-    public bool[,] gridCells;
+// public class BufferToLoadIntoVisuals
+// {
+//     public bool[,] gridCells;
 
-    public bool hasNewData;
-}
+//     public bool hasNewData;
+// }

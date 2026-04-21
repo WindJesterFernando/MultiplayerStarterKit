@@ -32,21 +32,11 @@ public class GridManager : MonoBehaviour
     {
         bool[,] gridCells = null;
 
-        lock (Simulation.bufferToLoadIntoVisuals)
+        lock (Simulation.toLoadIntoVisualsQueue)
         {
-            if (Simulation.bufferToLoadIntoVisuals.hasNewData)
+            if (Simulation.toLoadIntoVisualsQueue.Count > 0)
             {
-                gridCells = new bool[Simulation.SizeX, Simulation.SizeY];
-
-                for (int x = 0; x < Simulation.SizeX; x++)
-                {
-                    for (int y = 0; y < Simulation.SizeY; y++)
-                    {
-                        gridCells[x, y] = Simulation.bufferToLoadIntoVisuals.gridCells[x, y];
-                    }
-                }
-
-                Simulation.bufferToLoadIntoVisuals.hasNewData = false;
+                gridCells = Simulation.toLoadIntoVisualsQueue.Dequeue();
             }
         }
 
@@ -94,6 +84,8 @@ public class GridManager : MonoBehaviour
 
 //speed up bottleneck
 //avoid bottleneck
+
+
 //Egor's application of multi thread
 //
 //
