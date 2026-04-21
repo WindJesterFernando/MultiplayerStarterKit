@@ -1,5 +1,5 @@
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 static public class Simulation
 {
@@ -10,16 +10,21 @@ static public class Simulation
 
     static public int generation;
 
-    //static long timeSinceLastBenchmark = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    static long timeSinceLastBenchmark = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-    //static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
+    static public Queue<string> debugLogQueue;
 
-    //static public bool bufferIsLocked;
+    static public BufferToLoadIntoVisuals bufferToLoadIntoVisuals;
+
+    // static public bool bufferIsLocked;
 
     static public void GenerateGrid()
     {
-        // bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
-        // bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
+        debugLogQueue = new Queue<string>();
+
+        bufferToLoadIntoVisuals = new BufferToLoadIntoVisuals();
+        bufferToLoadIntoVisuals.gridCells = new bool[SizeX, SizeY];
+
 
         gridCells = new bool[SizeX, SizeY];
 
@@ -34,59 +39,86 @@ static public class Simulation
 
     static public void ProcessSimCycle()
     {
-        // bool[,] newGrid = new bool[SizeX, SizeY];
+        while (generation < 100000)
+        {
 
-        // for (int x = 0; x < SizeX; x++)
-        // {
-        //     for (int y = 0; y < SizeY; y++)
-        //     {
-        //         //newGrid[x, y] = DetermineCellLifeState(x, y);
-        //     }
-        // }
+            #region Process Next Generation of Sim
 
-        // gridCells = newGrid;
-        generation++;
+            generation++;
+
+            bool[,] newGrid = new bool[SizeX, SizeY];
+
+            for (int x = 0; x < SizeX; x++)
+            {
+                for (int y = 0; y < SizeY; y++)
+                {
+                    newGrid[x, y] = DetermineCellLifeState(x, y);
+                }
+            }
+
+            gridCells = newGrid;
+
+            #endregion
+
+            #region Time Stamp
+
+            if (generation % 1000 == 0)
+            {
+                long newTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                long timeDif = newTimeStamp - timeSinceLastBenchmark;
+                timeSinceLastBenchmark = newTimeStamp;
+
+                lock (debugLogQueue)
+                {
+                    debugLogQueue.Enqueue("gen == " + generation);
+                    debugLogQueue.Enqueue("time == " + timeDif);
+                }//unlocks
+            }
+
+            #endregion
+
+
+
+            lock (bufferToLoadIntoVisuals)
+            {
+                if (!bufferToLoadIntoVisuals.hasNewData)
+                {
+                    for (int x = 0; x < Simulation.SizeX; x++)
+                    {
+                        for (int y = 0; y < Simulation.SizeY; y++)
+                        {
+                            bufferToLoadIntoVisuals.gridCells[x, y] = gridCells[x, y];
+                        }
+                    }
+
+                    //bufferToLoadIntoVisuals.gridCells = gridCells;
+                    bufferToLoadIntoVisuals.hasNewData = true;
+                }
+            }
+        }
+
+
+        lock (debugLogQueue)
+        {
+            debugLogQueue.Enqueue("Done!!!!");
+        }
+
+
+
 
         ///UnityEngine.Debug.Log("gen == " + generation);
 
-        // lock (bufferToLoadIntoVisuals)
-        // {
-        //     if (!bufferToLoadIntoVisuals.hasNewData)
-        //     {
-        //         for (int x = 0; x < Simulation.SizeX; x++)
-        //         {
-        //             for (int y = 0; y < Simulation.SizeY; y++)
-        //             {
-        //                 bufferToLoadIntoVisuals.gridCells[x, y] = gridCells[x, y];
-        //             }
-        //         }
-
-        //         //bufferToLoadIntoVisuals.gridCells = gridCells;
-        //         bufferToLoadIntoVisuals.hasNewData = true;
-        //     }
-        // }
 
 
-        if (generation % 1000 == 0)
-        {
-            //UnityEngine.Debug.Log("gen == " + generation);
 
-            //long newTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-            //long timeDif = newTimeStamp - timeSinceLastBenchmark;
-
-            //UnityEngine.Debug.Log("time == " + timeDif);
-
-            //timeSinceLastBenchmark = newTimeStamp;
-        }
 
 
         // if (generation == 100000 -1)
         //     UnityEngine.Debug.Log("final");
-                            
 
-        if (generation < 100000)
-            ProcessSimCycle();
+
+        // if (generation < 100000)
+        //     ProcessSimCycle();
     }
 
     static public int CountAliveNeighbours(int x, int y)
